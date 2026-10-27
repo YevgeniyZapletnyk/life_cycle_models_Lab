@@ -26,6 +26,7 @@
       const matches=[...s.matchAll(pattern)];
       if (!matches.length || s.replace(pattern,'').replace(/[\s,;]/g,''))
         throw new Error('Формат: (1, 1.5), (2, 0.8); десятковий роздільник — крапка.');
+      if(matches.some(m=>!m[1].trim()||!m[2].trim()))throw new Error('Координата не може бути порожньою.');
       points=matches.map(m=>[Number(m[1]),Number(m[2])]);
     } else {
       points=s.split(/[\n;]+/).filter(s=>s.trim()).map(line=>line.trim().split(/[\s,]+/).map(Number));
