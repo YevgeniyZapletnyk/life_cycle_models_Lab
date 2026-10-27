@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="uk">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Апроксимація функцій · Варіант 3</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header><div><span class="eyebrow">ЧИСЕЛЬНІ МЕТОДИ / ЛАБОРАТОРНА № 1</span><h1>Апроксимація функцій</h1><p>Інтерполяція Лагранжа та метод найменших квадратів</p></div><span class="badge">Варіант 03</span></header>
+<main>
+<aside class="panel controls">
+ <h2>Параметри дослідження</h2>
+ <label>Набір даних<select id="dataset"><option value="5">5 точок</option><option value="10">10 (фактично 8) точок</option><option value="20">20 точок</option></select></label>
+ <p class="note">У вихідній таблиці набір «10» містить 8 пар. Дані збережено без доповнень.</p>
+ <label>Метод<select id="mode"><option value="all">Усі</option><option value="lagrange">Інтерполяція</option><option value="lsq">МНК</option></select></label>
+ <label>Степінь МНК<select id="degree"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></label>
+ <label class="check"><input id="extrap" type="checkbox"> Екстраполяція ±15 %</label>
+ <p id="extrapNote" class="note" hidden>Поза інтервалом вузлів прогноз може бути нестійким.</p>
+ <h2>Анімація побудови</h2>
+ <div class="buttons"><button id="play">▶ Відтворити</button><button id="restart" class="secondary">↺ Спочатку</button><button id="finish" class="secondary">⏭ Результат</button></div>
+ <label>Час <output id="progressText">100 %</output><input id="progress" type="range" min="0" max="1000" value="1000"></label>
+ <label>Швидкість<select id="speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label>
+ <details><summary>Власні точки</summary><p class="note">По одній парі x y у рядку або (x, y), (x, y). Десятковий роздільник — крапка.</p><textarea id="input" rows="7" aria-label="Координати точок"></textarea><div class="buttons"><button id="apply">Застосувати</button><button id="reset" class="secondary">Скинути</button></div><p id="error" role="alert"></p></details>
+ <p class="note">Клавіші 1 / 2 / 3 — набори; пробіл — пауза. Наведіть курсор на вузол, щоб побачити його залишок.</p>
+</aside>
+<section class="workspace">
+ <div class="panel"><div class="chartHeading"><h2 id="chartTitle">5 точок</h2><div class="legend"><span class="blue">● Лагранж</span><span class="orange">● МНК</span><span>● Дані</span><span class="red">│ Залишки</span></div></div><canvas id="mainChart" aria-label="Графік інтерполяції та МНК"></canvas><p class="note" id="frameNote"></p></div>
+ <div class="panel" id="residualPanel"><h2>Залишки МНК · rᵢ = yᵢ − ŷᵢ</h2><canvas id="residualChart" aria-label="Діаграма залишків"></canvas></div>
+ <div class="summaryGrid"><div class="panel"><h2>Поліном МНК</h2><p id="formula" class="formula"></p><p id="normalization" class="note"></p><div id="metrics" class="metrics"></div></div><div class="panel"><h2>Інтерполяційний поліном</h2><p id="interpolationInfo"></p><p class="note">L(x) = Σ yᵢ Πⱼ≠ᵢ (x − xⱼ)/(xᵢ − xⱼ)</p><p id="newton" class="formula"></p></div></div>
+ <details class="panel" id="values"><summary>Таблиця значень і поділених різниць</summary><div class="tableScroll" id="pointsTable"></div><h3>Таблиця Ньютона</h3><div class="tableScroll" id="differenceTable"></div></details>
+ <section class="panel"><h2>Порівняння вихідних наборів</h2><p class="note">МНК: вибраний степінь. Набори мають різну природу — відмінності не пояснюються лише кількістю точок.</p><div class="tableScroll" id="comparison"></div></section>
+ <section class="panel"><h2>Шість графіків · три набори × два методи</h2><p class="note">Кінцеві криві на інтервалах вихідних даних. Кожний графік має власний автомасштаб.</p><div id="gallery" class="gallery"></div></section>
+</section>
+</main><footer>Лабораторна робота № 1 · Заплетнюк Євгеній Сергійович · ІПЗ-3 · 2026</footer>
+<script src="js/data.js"></script><script src="js/math.js"></script><script src="js/chart.js"></script><script src="js/app.js"></script>
+</body></html>
