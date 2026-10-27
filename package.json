@@ -1,0 +1,6 @@
+{
+  "name": "lab1-variant3",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": { "test": "node --test tests/*.test.js", "metrics": "node scripts/metrics.js" }
+}
