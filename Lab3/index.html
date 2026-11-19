@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Задача Коші · ЛР 3</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header><div class="brand">ODE<span>LAB</span><small>ЧИСЕЛЬНІ МЕТОДИ</small></div><div class="badge">Лабораторна № 3 <span>Варіант 03</span></div></header>
+<main>
+<div class="heading"><div><p class="eyebrow">ДОСЛІДЖЕННЯ ДИНАМІЧНИХ СИСТЕМ</p><h1>Задача Коші</h1><p class="subtitle">Від дотичної Ейлера до чотирьох оцінок Рунге–Кутти.</p></div><div class="formula" id="formula">y′ = y cos x <small>y(0) = 2 · x ∈ [0; π]</small></div></div>
+<nav aria-label="Режим"><button class="tab active" data-mode="variant">01 · Варіант 3</button><button class="tab" data-mode="stability">02 · Стійкість</button><button class="tab" data-mode="custom">03 · Власна задача</button><button class="tab" data-mode="lotka">04 · Хижак–жертва</button></nav>
+<div id="scalar">
+<div class="workspace"><aside class="panel"><h2>Параметри задачі</h2><form id="parameters">
+<label>Права частина f(x, y)<input id="expression" value="y*cos(x)" required></label>
+<div class="two"><label>Початок x₀<input id="x0" value="0" required></label><label>Значення y₀<input id="y0" value="2" required></label></div>
+<label>Кінець інтервалу b<input id="end" value="pi" required></label>
+<label>Точний розв’язок (необов’язково)<input id="exact" value="2*exp(sin(x))"></label>
+<p class="hint">Синтаксис: + − * / ^, sin, cos, tan, exp, ln, sqrt, abs, atan; константи pi, e. Десятковий роздільник — крапка.</p>
+<label>Кількість кроків n<input id="n" type="number" min="1" max="10000" step="1" value="10" required></label>
+<div class="segmented" id="presets"><button type="button" data-n="5">5</button><button type="button" data-n="10" class="selected">10</button><button type="button" data-n="20">20</button></div>
+<label>Метод<select id="method"><option value="all">Усі методи</option></select></label>
+<button type="submit" class="primary wide">Обчислити розв’язок <span>→</span></button>
+</form><div id="message" role="alert" aria-live="polite"></div><p class="hint" id="task-note">n — кількість кроків; таблиця містить n + 1 вузлів.</p></aside>
+<section class="panel main-chart"><div class="section-head"><div><p class="eyebrow">ЧИСЕЛЬНИЙ ЕКСПЕРИМЕНТ</p><h2>Траєкторія розв’язку</h2></div><span id="step-label" class="pill"></span></div><div id="legend" class="legend"></div><canvas id="solution" data-height="335" aria-label="Графік точного і чисельних розв’язків"></canvas>
+<div class="player"><button id="play" class="primary">▶ Відтворити</button><button id="reset" title="На початок">↶</button><input id="timeline" aria-label="Крок анімації" type="range" min="0" max="10" step="0.01" value="10"><select id="speed" aria-label="Швидкість"><option value="1">1×</option><option value="2">2×</option><option value="4">4×</option></select></div>
+<div class="stage-head"><label class="check"><input type="checkbox" id="stages" checked> Показувати стадії поточного кроку РК4</label><span class="hint">Фіолетові точки — проміжні оцінки</span></div><div id="stage-values" class="stage-values"></div>
+<div class="section-head error-head"><h3>Абсолютна похибка у вузлах</h3><label class="check"><input id="log" type="checkbox"> log₁₀ шкала</label></div><canvas id="error" data-height="210" aria-label="Графік абсолютної похибки"></canvas><p id="error-note" class="hint">Нульові похибки не відображаються в логарифмічній шкалі.</p>
+</section></div>
+<section class="panel below"><div class="section-head"><div><p class="eyebrow">ТОЧНІСТЬ І ЗБІЖНІСТЬ</p><h2>Порівняння кроків</h2></div><button id="export">↓ Експорт CSV</button></div><p class="hint">e = max |y(xᵢ) − yᵢ|; p = log₂(e(h) / e(h/2)). Порівняння виконується для всіх трьох методів.</p><div class="table-wrap"><table id="analysis"></table></div><p class="hint">Час залежить від середовища; відтворюване вимірювання з прогрівом: npm run metrics.</p></section>
+<section class="below"><div class="section-head"><h2>Галерея шести графіків</h2><span class="hint">Повний інтервал · усі методи</span></div><div id="gallery" class="gallery"></div></section>
+<section class="panel below"><details open><summary>Таблиця вузлів поточного розрахунку</summary><p class="hint" id="table-note"></p><div class="table-wrap node-table"><table id="nodes"></table></div></details></section>
+</div>
+<section id="lotka" hidden><div class="panel"><p class="eyebrow">БОНУСНЕ ЗАВДАННЯ</p><h2>Модель Лотки–Вольтерри</h2><p>x′ = αx − βxy, y′ = δxy − γy · α = 1, β = 0,1, γ = 1,5, δ = 0,075</p><p>x(0) = 10, y(0) = 5 · t ∈ [0; 30] · n = 1200 · РК4</p><div class="gallery"><div><h3>Фазовий портрет</h3><canvas id="phase" data-height="380"></canvas></div><div><h3>Популяції у часі</h3><canvas id="populations" data-height="380"></canvas></div></div><p id="lotka-result" class="callout"></p><p class="hint">Рівновага: (γ/δ; α/β) = (20; 10). Інваріант V = δx − γ ln x + βy − α ln y.</p></div></section>
+<footer>Заплетнюк Євгеній Сергійович · ІПЗ · 2026 <span>JavaScript / Strategy / RK4</span></footer>
+</main><script src="js/methods.js"></script><script src="js/expr.js"></script><script src="js/solver.js"></script><script src="js/problems.js"></script><script src="js/chart.js"></script><script src="js/app.js"></script>
+</body></html>
