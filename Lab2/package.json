@@ -1,0 +1,1 @@
+{"name":"slar-lab2-variant3","version":"1.0.0","private":true,"scripts":{"test":"node --test tests/*.test.js","metrics":"node scripts/metrics.js","demo":"node cli.js"}}
