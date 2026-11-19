@@ -1,0 +1,8 @@
+{
+  "name": "lab3-cauchy-variant3",
+  "version": "1.0.0",
+  "private": true,
+  "description": "ЛР №3 — задача Коші, варіант 3",
+  "scripts": { "test": "node --test tests/*.test.js", "metrics": "node scripts/metrics.js" },
+  "engines": { "node": ">=20" }
+}
